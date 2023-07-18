@@ -1,0 +1,20 @@
+#Send slack message on PR github action, run JavaScript script
+name: Notify Slack when open PR
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notifySlack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Notify Slack
+        uses: link-/ping-slack-action@main
+        with:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
